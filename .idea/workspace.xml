@@ -3,8 +3,31 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="" />
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hello-service-api/hello-service-api.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-common/rpc-framework-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/WorkerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-service-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hello-service-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +36,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -30,32 +54,70 @@
     </option>
   </component>
   <component name="ProjectId" id="1oPXO1o5HIkDDvddjD0DyWWZSJ2" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../code/rpc" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.RpcFrameworkSimpleMain">
+    <configuration name="RpcFrameWorkSimpleMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameWorkSimpleMain" />
+      <module name="example-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="learnfast.pankai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RpcFrameworkSimpleMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameworkSimpleMain" />
+      <module name="example-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="learnfast.pankai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.RpcFrameworkSimpleMain" />
+        <item itemvalue="Application.RpcFrameWorkSimpleMain" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,30 +128,79 @@
       <option name="presentableId" value="Default" />
       <updated>1613189166445</updated>
       <workItem from="1613189167558" duration="5815000" />
-      <workItem from="1613286318795" duration="1659000" />
+      <workItem from="1613286318795" duration="2152000" />
+      <workItem from="1613288501382" duration="5214000" />
+      <workItem from="1613378617239" duration="11908000" />
+      <workItem from="1613440852575" duration="4197000" />
+      <workItem from="1613485306154" duration="965000" />
+      <workItem from="1613613435190" duration="11131000" />
     </task>
+    <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
+      <created>1613288266119</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613288266119</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类" />
+    <option name="LAST_COMMIT_MESSAGE" value="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1397" height="186" key="GridCell.Tab.0.bottom" timestamp="1613226185788">
+    <state x="457" y="284" key="#Notifications" timestamp="1613288286931">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="186" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613226185788" />
-    <state width="1397" height="186" key="GridCell.Tab.0.center" timestamp="1613226185788">
+    <state x="457" y="284" key="#Notifications/0.0.1440.920@0.0.1440.920" timestamp="1613288286931" />
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser" timestamp="1613615444402">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="186" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613226185788" />
-    <state width="1397" height="186" key="GridCell.Tab.0.left" timestamp="1613226185788">
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1613615444402" />
+    <state x="501" y="215" key="FileChooserDialogImpl" timestamp="1613615348815">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="186" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613226185788" />
-    <state width="1397" height="186" key="GridCell.Tab.0.right" timestamp="1613226185788">
+    <state x="501" y="215" key="FileChooserDialogImpl/0.0.1440.920@0.0.1440.920" timestamp="1613615348815" />
+    <state x="562" y="358" key="Github.ShareDialog" timestamp="1613293478151">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="186" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613226185788" />
+    <state x="562" y="358" key="Github.ShareDialog/0.0.1440.920@0.0.1440.920" timestamp="1613293478151" />
+    <state width="1382" height="342" key="GridCell.Tab.0.bottom" timestamp="1613652436282">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1382" height="342" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
+    <state width="1382" height="342" key="GridCell.Tab.0.center" timestamp="1613652436282">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1382" height="342" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
+    <state width="1382" height="342" key="GridCell.Tab.0.left" timestamp="1613652436282">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1382" height="342" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
+    <state width="1382" height="342" key="GridCell.Tab.0.right" timestamp="1613652436282">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state width="1382" height="342" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
+    <state x="222" y="70" key="SettingsEditor" timestamp="1613638250036">
+      <screen x="0" y="0" width="1440" height="920" />
+    </state>
+    <state x="222" y="70" key="SettingsEditor/0.0.1440.920@0.0.1440.920" timestamp="1613638250036" />
     <state x="108" y="121" key="new project wizard" timestamp="1613211432246">
       <screen x="0" y="0" width="1440" height="920" />
     </state>

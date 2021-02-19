@@ -5,7 +5,7 @@ package learnfast.pankai;
  *
  * @Description
  **/
-public class RpcFrameworkSimpleMain {
+public class RpcFrameworkSimpleClientMain {
     public static void main(String [] args){
         RpcClientProxy rpcClientProxy=new RpcClientProxy("127.0.0.1",9999);
         HelloService helloService=rpcClientProxy.getProxy(HelloService.class);

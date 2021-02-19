@@ -1,5 +1,7 @@
 package learnfast.pankai;
 
+import learnfast.pankai.enumration.RpcErrorMessageEnum;
+import learnfast.pankai.exception.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +45,9 @@ public class RpcServer {
      * @param port
      */
     public void register(Object service ,int port){
+        if(null==service){
+            throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_NULL);
+        }
         try {
             ServerSocket server=new ServerSocket(port);
             logger.info("server starts...");
@@ -51,7 +56,7 @@ public class RpcServer {
             while((socket=server.accept())!=null){
                 logger.info("client connected");
                 //工人线程（worker thread）会一次抓一件工作来处理，当没有工作可做时，工人线程会停下来等待新的工作过来
-                threadPool.execute( new WorkerThread(socket,service));
+                threadPool.execute( new ClientMessageHandlerThread(socket,service));
             }
         } catch (IOException e) {
 

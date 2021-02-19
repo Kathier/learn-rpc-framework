@@ -1,6 +1,10 @@
 package learnfast.pankai;
 
 import learnfast.pankai.dto.RpcRequest;
+import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.enumration.RpcErrorMessageEnum;
+import learnfast.pankai.enumration.RpcResponseCode;
+import learnfast.pankai.exception.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +37,19 @@ public class RpcClient {
             objectOutputStream.writeObject(rpcRequest);
             //获取响应
             ObjectInputStream objectInputStream=new ObjectInputStream(socket.getInputStream());
-            //ObjectInputStream 反序列化流，将之前使用 ObjectOutputStream 序列化的原始数据恢复为对象，以流的方式读取对象。
-            return objectInputStream.readObject();
+            RpcResponse rpcResponse= (RpcResponse) objectInputStream.readObject();
+            if(null==rpcResponse){
+                logger.error("服务调用失败，serviceName:{}", rpcRequest.getInterfaceName());
+                throw new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE,
+                        "InterfaceName: "+rpcRequest.getInterfaceName());
+            }
+            if(rpcResponse.getCode()==null || !rpcResponse.getCode().equals(RpcResponseCode.SUCCESS.getCode())){
+                logger.error("调用服务失败，serviceName:{},rpcResponse:{}",
+                        rpcRequest.getInterfaceName(),rpcResponse);
+                throw  new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE,
+                        "InterfaceName: "+rpcRequest.getInterfaceName());
+            }
+            return  rpcResponse.getData();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

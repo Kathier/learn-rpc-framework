@@ -13,20 +13,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hello-service-api/hello-service-api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-common/rpc-framework-common.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/WorkerThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="rpc框架的最简单实现：&#10;1、客户端调用服务端接口实现方法是通过网络传输这里采用socket通信&#10;2、客户端传递接口名、方法参数，参数类型等信息的序列化方式采用jdk原生的序列化方式，即实现Serializable&#10;3、客户端采用JDK动态代理的方式生成实例对象，并且调用方法时生成需要的RpcRequest对象并且发送给服务端。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-service-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/hello-service-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/RpcFrameworkSimpleMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/RpcFrameworkSimpleClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/HelloServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/HelloServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/RpcFrameWorkSimpleMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/RpcFrameWorkSimpleServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-service-api/src/main/java/learnfast/pankai/Hello.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-service-api/src/main/java/learnfast/pankai/Hello.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-service-api/src/main/java/learnfast/pankai/HelloService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-service-api/src/main/java/learnfast/pankai/HelloService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/RpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/WorkerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/ClientMessageHandlerThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +35,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -66,7 +64,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../code/rpc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -74,9 +72,9 @@
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Application.RpcFrameworkSimpleMain">
-    <configuration name="RpcFrameWorkSimpleMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameWorkSimpleMain" />
+  <component name="RunManager" selected="Application.RpcFrameworkSimpleClientMain">
+    <configuration name="RpcFrameWorkSimpleServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameWorkSimpleServerMain" />
       <module name="example-server" />
       <extension name="coverage">
         <pattern>
@@ -88,8 +86,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RpcFrameworkSimpleMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameworkSimpleMain" />
+    <configuration name="RpcFrameworkSimpleClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="learnfast.pankai.RpcFrameworkSimpleClientMain" />
       <module name="example-client" />
       <extension name="coverage">
         <pattern>
@@ -101,21 +99,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RpcFrameworkSimpleMain" />
-        <item itemvalue="Application.RpcFrameWorkSimpleMain" />
+        <item itemvalue="Application.RpcFrameworkSimpleClientMain" />
+        <item itemvalue="Application.RpcFrameWorkSimpleServerMain" />
       </list>
     </recent_temporary>
   </component>
@@ -133,7 +133,8 @@
       <workItem from="1613378617239" duration="11908000" />
       <workItem from="1613440852575" duration="4197000" />
       <workItem from="1613485306154" duration="965000" />
-      <workItem from="1613613435190" duration="11131000" />
+      <workItem from="1613613435190" duration="17134000" />
+      <workItem from="1613699939783" duration="2182000" />
     </task>
     <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
       <created>1613288266119</created>
@@ -142,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613288266119</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="rpc框架的最简单实现：&#10;1、客户端调用服务端接口实现方法是通过网络传输这里采用socket通信&#10;2、客户端传递接口名、方法参数，参数类型等信息的序列化方式采用jdk原生的序列化方式，即实现Serializable&#10;3、客户端采用JDK动态代理的方式生成实例对象，并且调用方法时生成需要的RpcRequest对象并且发送给服务端。">
+      <created>1613652997419</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1613652997419</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,17 +170,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类" />
-    <option name="LAST_COMMIT_MESSAGE" value="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类" />
+    <MESSAGE value="rpc框架的最简单实现：&#10;1、客户端调用服务端接口实现方法是通过网络传输这里采用socket通信&#10;2、客户端传递接口名、方法参数，参数类型等信息的序列化方式采用jdk原生的序列化方式，即实现Serializable&#10;3、客户端采用JDK动态代理的方式生成实例对象，并且调用方法时生成需要的RpcRequest对象并且发送给服务端。" />
+    <option name="LAST_COMMIT_MESSAGE" value="rpc框架的最简单实现：&#10;1、客户端调用服务端接口实现方法是通过网络传输这里采用socket通信&#10;2、客户端传递接口名、方法参数，参数类型等信息的序列化方式采用jdk原生的序列化方式，即实现Serializable&#10;3、客户端采用JDK动态代理的方式生成实例对象，并且调用方法时生成需要的RpcRequest对象并且发送给服务端。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="284" key="#Notifications" timestamp="1613288286931">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
     <state x="457" y="284" key="#Notifications/0.0.1440.920@0.0.1440.920" timestamp="1613288286931" />
-    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser" timestamp="1613615444402">
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser" timestamp="1613654656769">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1613615444402" />
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1613654656769" />
     <state x="501" y="215" key="FileChooserDialogImpl" timestamp="1613615348815">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
@@ -181,22 +190,22 @@
       <screen x="0" y="0" width="1440" height="920" />
     </state>
     <state x="562" y="358" key="Github.ShareDialog/0.0.1440.920@0.0.1440.920" timestamp="1613293478151" />
-    <state width="1382" height="342" key="GridCell.Tab.0.bottom" timestamp="1613652436282">
+    <state width="1382" height="342" key="GridCell.Tab.0.bottom" timestamp="1613701881242">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1382" height="342" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
-    <state width="1382" height="342" key="GridCell.Tab.0.center" timestamp="1613652436282">
+    <state width="1382" height="342" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613701881242" />
+    <state width="1382" height="342" key="GridCell.Tab.0.center" timestamp="1613701881242">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1382" height="342" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
-    <state width="1382" height="342" key="GridCell.Tab.0.left" timestamp="1613652436282">
+    <state width="1382" height="342" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613701881242" />
+    <state width="1382" height="342" key="GridCell.Tab.0.left" timestamp="1613701881242">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1382" height="342" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
-    <state width="1382" height="342" key="GridCell.Tab.0.right" timestamp="1613652436282">
+    <state width="1382" height="342" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613701881242" />
+    <state width="1382" height="342" key="GridCell.Tab.0.right" timestamp="1613701881242">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1382" height="342" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613652436282" />
+    <state width="1382" height="342" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613701881242" />
     <state x="222" y="70" key="SettingsEditor" timestamp="1613638250036">
       <screen x="0" y="0" width="1440" height="920" />
     </state>

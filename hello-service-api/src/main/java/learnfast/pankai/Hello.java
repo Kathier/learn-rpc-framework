@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @Author PanKai
- * @Description
+ * @Description 测试用api的实体
  * @Date  2021/2/18/ 16:44
  **/
 @Data

@@ -1,4 +1,4 @@
-package learnfast.pankai;
+package learnfast.pankai.remoting.socket;
 import learnfast.pankai.dto.RpcRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

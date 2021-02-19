@@ -1,7 +1,9 @@
-package learnfast.pankai;
+package learnfast.pankai.remoting.socket;
 
 import learnfast.pankai.enumration.RpcErrorMessageEnum;
 import learnfast.pankai.exception.RpcException;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.remoting.RpcRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,29 +27,34 @@ import java.util.concurrent.*;
  * @Date 2021/2/15
  **/
 public class RpcServer {
-    //创建线程池令服务端处理多个客户端的连接
-    private ExecutorService threadPool;
+
+
     private static  final Logger logger=  LoggerFactory.getLogger(RpcServer.class);
 
-    public RpcServer(){
-        //线程池参数
-        int corePoolSize =10;
-        int maximumPoolSize = 100;
-        long keepAliveTime=1;
-        BlockingQueue<Runnable> workQueue=new ArrayBlockingQueue<Runnable>(100);
+    /**
+     * 线程池参数
+     */
+    private  static  final  int  CORE_POOL_SIZE=10;
+    private static  final  int MAXINUM_POOL_SIZE=100;
+    private  static  final int KEEP_ALIVE_TIME=1;
+    private  static   final  int BLOCKING_QUEUE_CAPCITY=100;
+
+    private ExecutorService threadPool;
+    private  final ServiceRegistry serviceRegistry;
+    private  RpcRequestHandler rpcRequestHandler=new RpcRequestHandler();
+    public RpcServer(ServiceRegistry serviceRegistry){
+        this.serviceRegistry = serviceRegistry;
+        BlockingQueue<Runnable> workQueue=new ArrayBlockingQueue<Runnable>(BLOCKING_QUEUE_CAPCITY);
         ThreadFactory threadFactory= Executors.defaultThreadFactory();
-        this.threadPool=new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,TimeUnit.MINUTES,workQueue,threadFactory);
+        this.threadPool=new ThreadPoolExecutor(CORE_POOL_SIZE,MAXINUM_POOL_SIZE,KEEP_ALIVE_TIME,TimeUnit.MINUTES,workQueue,threadFactory);
     }
 
     /**
-     * 服务端主动注册服务
-     * @param service
+     * 服务启动
      * @param port
      */
-    public void register(Object service ,int port){
-        if(null==service){
-            throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_NULL);
-        }
+    public void start(int port){
+
         try {
             ServerSocket server=new ServerSocket(port);
             logger.info("server starts...");
@@ -55,9 +62,9 @@ public class RpcServer {
             //通过accept方法监听客户端请求
             while((socket=server.accept())!=null){
                 logger.info("client connected");
-                //工人线程（worker thread）会一次抓一件工作来处理，当没有工作可做时，工人线程会停下来等待新的工作过来
-                threadPool.execute( new ClientMessageHandlerThread(socket,service));
+                threadPool.execute( new RpcRequestHandlerRunnable(socket,rpcRequestHandler,serviceRegistry));
             }
+            threadPool.shutdown();
         } catch (IOException e) {
 
             logger.error("occur IOException",e);

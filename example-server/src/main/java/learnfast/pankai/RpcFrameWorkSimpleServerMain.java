@@ -1,5 +1,9 @@
 package learnfast.pankai;
 
+import learnfast.pankai.registry.DefaultServiceRegistry;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.remoting.socket.RpcServer;
+
 /**
  * Created by PanKai on 2021/2/18 17:03
  * @Description Rpc原理
@@ -9,9 +13,14 @@ package learnfast.pankai;
  **/
 public class RpcFrameWorkSimpleServerMain {
     public  static void main(String [] args){
-
-        RpcServer rpcServer=new RpcServer();
-        rpcServer.register(new HelloServiceImpl(),9999);
+        HelloService helloService=new HelloServiceImpl2();
+        HiService hiService=new HelloServiceImpl2();
+        DefaultServiceRegistry defaultServiceRegistry=new DefaultServiceRegistry();
+        //手动注册
+        defaultServiceRegistry.register(helloService);
+        defaultServiceRegistry.register(hiService);
+        RpcServer rpcServer=new RpcServer(defaultServiceRegistry);
+        rpcServer.start(9999);
     }
 
 }

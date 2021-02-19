@@ -1,4 +1,4 @@
-package learnfast.pankai;
+package learnfast.pankai.remoting.socket;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
@@ -25,7 +25,7 @@ import java.net.Socket;
  * 关闭相关资源
  */
 public class RpcClient {
-    public static final Logger logger= LoggerFactory.getLogger(RpcClient.class);
+    private static final Logger logger= LoggerFactory.getLogger(RpcClient.class);
 
     public Object sendRpcRequest(RpcRequest rpcRequest, String host, int port){
 

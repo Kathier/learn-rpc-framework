@@ -1,4 +1,4 @@
-package learnfast.pankai.transport.netty;
+package learnfast.pankai.transport.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -12,7 +12,8 @@ import java.util.List;
 
 /**
  * Created by PanKai on 2021/2/20 11:04
- *
+ * 自定义编码器，负责处理“出站”消息，将消息格式转换为字节数组，写入到字节数据容器byteBuf对象中
+ * 网络传输需要通过字节流来实现，byteBuf可以看作netty提供的字节数据容器
  * @Description
  **/
 @AllArgsConstructor

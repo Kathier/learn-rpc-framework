@@ -2,7 +2,7 @@ package learnfast.pankai;
 
 import learnfast.pankai.registry.DefaultServiceRegistry;
 
-import learnfast.pankai.transport.netty.NettyRpcServer;
+import learnfast.pankai.transport.netty.server.NettyRpcServer;
 
 /**
  * Created by PanKai on 2021/2/20 21:49

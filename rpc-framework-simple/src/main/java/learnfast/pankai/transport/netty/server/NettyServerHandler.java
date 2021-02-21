@@ -1,4 +1,4 @@
-package learnfast.pankai.transport.netty;
+package learnfast.pankai.transport.netty.server;
 
 import io.netty.channel.*;
 import io.netty.util.ReferenceCountUtil;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by PanKai on 2021/2/20 17:43
+ *  自定义服务端的channelHandler来处理客户端发来的数据
  * 用于接收RpcRequest,并且执行调用，将调用结果封装成rpcResponse对象返回
  * @Description
  **/

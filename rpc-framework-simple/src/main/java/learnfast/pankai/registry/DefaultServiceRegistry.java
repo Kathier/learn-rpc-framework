@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by PanKai on 2021/2/19 11:04
- *
+ * 默认的服务注册中心实现,通过map保存服务信息，可以改进为使用zookeeper
  * @Description
  **/
 public class DefaultServiceRegistry implements ServiceRegistry{

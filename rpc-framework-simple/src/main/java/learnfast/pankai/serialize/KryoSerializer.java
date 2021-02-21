@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * Created by PanKai on 2021/2/19 17:07
- * 使用kyro序列化框架来进行序列化
+ * 使用kryo序列化框架来进行序列化，Kryo序列化效率很高，但只兼容Java语言
  * @Description
  **/
 public class KryoSerializer implements  Serializer{
@@ -25,7 +25,7 @@ public class KryoSerializer implements  Serializer{
      * Kryo不是线程安全的，每个线程都应该有自己的Kryo,input、output实例
      * 使用ThreadLocal存储Kryo对象
      */
-    private  static  final  ThreadLocal<Kryo> kryoThreadLocal=ThreadLocal.withInitial(() -> {
+    private   final  ThreadLocal<Kryo> kryoThreadLocal=ThreadLocal.withInitial(() -> {
         Kryo kryo=new Kryo();
         kryo.register(RpcResponse.class);
         kryo.register(RpcRequest.class);

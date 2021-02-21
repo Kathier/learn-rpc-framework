@@ -2,7 +2,7 @@ package learnfast.pankai;
 
 import learnfast.pankai.transport.RpcClient;
 import learnfast.pankai.transport.RpcClientProxy;
-import learnfast.pankai.transport.netty.NettyRpcClient;
+import learnfast.pankai.transport.netty.client.NettyRpcClient;
 
 /**
  * Created by PanKai on 2021/2/20 22:01

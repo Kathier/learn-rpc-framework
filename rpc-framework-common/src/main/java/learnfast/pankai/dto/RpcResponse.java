@@ -1,7 +1,9 @@
 package learnfast.pankai.dto;
 
 import learnfast.pankai.enumration.RpcResponseCode;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +12,8 @@ import java.io.Serializable;
  *
  * @Description
  **/
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class RpcResponse <T> implements Serializable {
     private  static  final long serialVersionUID=715745410605631233L;

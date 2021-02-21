@@ -1,8 +1,7 @@
 package learnfast.pankai;
 
 import learnfast.pankai.registry.DefaultServiceRegistry;
-import learnfast.pankai.registry.ServiceRegistry;
-import learnfast.pankai.remoting.socket.RpcServer;
+import learnfast.pankai.transport.socket.SocketRpcServer;
 
 /**
  * Created by PanKai on 2021/2/18 17:03
@@ -19,8 +18,8 @@ public class RpcFrameWorkSimpleServerMain {
         //手动注册
         defaultServiceRegistry.register(helloService);
         defaultServiceRegistry.register(hiService);
-        RpcServer rpcServer=new RpcServer(defaultServiceRegistry);
-        rpcServer.start(9999);
+        SocketRpcServer socketRpcServer =new SocketRpcServer();
+        socketRpcServer.start(9999);
     }
 
 }

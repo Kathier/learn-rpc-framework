@@ -1,5 +1,6 @@
-package learnfast.pankai.remoting.socket;
+package learnfast.pankai.transport;
 import learnfast.pankai.dto.RpcRequest;
+import learnfast.pankai.transport.socket.SocketRpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +16,9 @@ import java.lang.reflect.Proxy;
  **/
 public class RpcClientProxy implements InvocationHandler {
     private static final Logger logger = LoggerFactory.getLogger(RpcClientProxy.class);
-    private  String host;
-    private  int port;
-    public RpcClientProxy(String host,int port){
-        this.host=host;
-        this.port=port;
+    private  RpcClient rpcClient;
+    public RpcClientProxy(RpcClient rpcClient){
+      this.rpcClient=rpcClient;
     }
     //生成代理对象
     @SuppressWarnings("unchecked") //告诉编译器忽略 unchecked 警告信息
@@ -36,18 +35,15 @@ public class RpcClientProxy implements InvocationHandler {
      * @param method 与代理类调用的方法相对应
      * @param args   当前method方法的参数
      * @return
-     * @throws Throwable
      */
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args)  {
         logger.info("call invoke method and the method is :{}",method.getName());
         RpcRequest rpcRequest=RpcRequest.builder().methodName(method.getName()).
                 parameters(args).
                 interfaceName(method.getDeclaringClass().getName()).
                 parameterTypes(method.getParameterTypes()).
                 build();
-        RpcClient rpcClient=new RpcClient();
-
-        return rpcClient.sendRpcRequest(rpcRequest,host,port);
+        return rpcClient.sendRpcRequest(rpcRequest);
     }
 }

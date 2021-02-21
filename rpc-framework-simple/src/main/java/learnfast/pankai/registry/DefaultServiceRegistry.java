@@ -23,9 +23,11 @@ public class DefaultServiceRegistry implements ServiceRegistry{
      * 定义一个map存储接口和它的多个实现
      * key:service/Interface name
      * value:service
+     * 将包含注册信息的 serviceMap 和 registeredService 都改成了 static ，
+     * 这样就能保证全局唯一的注册信息，并且在创建 RpcServer 时也就不需要传入了
      */
-    private final Map<String,Object> serviceMap=new ConcurrentHashMap<>();
-    private  final Set<String> registeredService=ConcurrentHashMap.newKeySet();
+    private static  final Map<String,Object> serviceMap=new ConcurrentHashMap<>();
+    private  static  final Set<String> registeredService=ConcurrentHashMap.newKeySet();
 
     /**
      * 修改为扫描注解注册

@@ -1,6 +1,8 @@
 package learnfast.pankai;
 
-import learnfast.pankai.remoting.socket.RpcClientProxy;
+import learnfast.pankai.transport.RpcClient;
+import learnfast.pankai.transport.RpcClientProxy;
+import learnfast.pankai.transport.socket.SocketRpcClient;
 
 /**
  * Created by PanKai on 2021/2/18 17:17
@@ -9,7 +11,8 @@ import learnfast.pankai.remoting.socket.RpcClientProxy;
  **/
 public class RpcFrameworkSimpleClientMain {
     public static void main(String [] args){
-        RpcClientProxy rpcClientProxy=new RpcClientProxy("127.0.0.1",9999);
+        RpcClient rpcClient=new SocketRpcClient("127.0.0.1",9999);
+        RpcClientProxy rpcClientProxy=new RpcClientProxy(rpcClient);
         HelloService helloService=rpcClientProxy.getProxy(HelloService.class);
         String hello=helloService.hello(new Hello("test","何人为我楚舞"));
         System.out.println(hello);

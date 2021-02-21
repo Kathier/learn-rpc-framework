@@ -1,16 +1,16 @@
-package learnfast.pankai.remoting.socket;
+package learnfast.pankai.transport.socket;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.registry.DefaultServiceRegistry;
 import learnfast.pankai.registry.ServiceRegistry;
-import learnfast.pankai.remoting.RpcRequestHandler;
+import learnfast.pankai.transport.RpcRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
 /**
@@ -18,16 +18,20 @@ import java.net.Socket;
  *
  * @Description
  **/
-public class RpcRequestHandlerRunnable implements Runnable {
+public class SocketRpcRequestHandlerRunnable implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(RpcRequestHandlerRunnable.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandlerRunnable.class);
     private Socket socket;
-    private RpcRequestHandler rpcRequestHandler;
-    private ServiceRegistry serviceRegistry;
-    public RpcRequestHandlerRunnable(Socket socket, RpcRequestHandler rpcRequestHandler, ServiceRegistry serviceRegistry) {
+    private static  RpcRequestHandler rpcRequestHandler;
+    private static  ServiceRegistry serviceRegistry;
+    //静态代码块随着类的加载而执行，而且只执行一次
+    static {
+        rpcRequestHandler=new RpcRequestHandler();
+        serviceRegistry = new DefaultServiceRegistry();
+    }
+    public SocketRpcRequestHandlerRunnable(Socket socket) {
         this.socket = socket;
-        this.rpcRequestHandler=rpcRequestHandler;
-        this.serviceRegistry = serviceRegistry;
+
     }
     @Override
     public void run() {

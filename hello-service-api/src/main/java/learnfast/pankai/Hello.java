@@ -1,6 +1,8 @@
 package learnfast.pankai;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +12,8 @@ import java.io.Serializable;
  * @Date  2021/2/18/ 16:44
  **/
 @Data
+@Builder
+@NoArgsConstructor
 public class Hello  implements Serializable {
     private  String message;
     private String description;

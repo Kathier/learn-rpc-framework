@@ -16,9 +16,11 @@
         </plugins>
     </build>
     <properties>
-        <java.version>15</java.version>
+        <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <netty.version>4.1.42.Final</netty.version>
+        <kryo.version>4.0.2</kryo.version>
     </properties>
     <groupId>org.example</groupId>
     <artifactId>learn-rpc-framework</artifactId>

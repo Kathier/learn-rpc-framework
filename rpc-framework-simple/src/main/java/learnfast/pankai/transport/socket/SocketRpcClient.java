@@ -1,10 +1,12 @@
-package learnfast.pankai.remoting.socket;
+package learnfast.pankai.transport.socket;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.enumration.RpcErrorMessageEnum;
 import learnfast.pankai.enumration.RpcResponseCode;
 import learnfast.pankai.exception.RpcException;
+import learnfast.pankai.transport.RpcClient;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +26,17 @@ import java.net.Socket;
  * 通过输出流向客户端发送响应消息
  * 关闭相关资源
  */
-public class RpcClient {
-    private static final Logger logger= LoggerFactory.getLogger(RpcClient.class);
+@AllArgsConstructor
+public class SocketRpcClient implements RpcClient {
+    private static final Logger logger= LoggerFactory.getLogger(SocketRpcClient.class);
 
-    public Object sendRpcRequest(RpcRequest rpcRequest, String host, int port){
+    private  String host;
+    private  int port;
 
+
+
+    @Override
+    public Object sendRpcRequest(RpcRequest rpcRequest) {
         try {
             Socket socket = new Socket(host, port);
 
@@ -57,6 +65,6 @@ public class RpcClient {
         }
         return null;
 
-    }
 
+    }
 }

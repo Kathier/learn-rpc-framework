@@ -1,4 +1,4 @@
-package learnfast.pankai.remoting;
+package learnfast.pankai.transport;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;

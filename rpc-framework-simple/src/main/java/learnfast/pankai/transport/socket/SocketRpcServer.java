@@ -1,9 +1,6 @@
-package learnfast.pankai.remoting.socket;
+package learnfast.pankai.transport.socket;
 
-import learnfast.pankai.enumration.RpcErrorMessageEnum;
-import learnfast.pankai.exception.RpcException;
-import learnfast.pankai.registry.ServiceRegistry;
-import learnfast.pankai.remoting.RpcRequestHandler;
+import learnfast.pankai.transport.RpcRequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +23,10 @@ import java.util.concurrent.*;
  * 关闭资源
  * @Date 2021/2/15
  **/
-public class RpcServer {
+public class SocketRpcServer {
 
 
-    private static  final Logger logger=  LoggerFactory.getLogger(RpcServer.class);
+    private static  final Logger logger=  LoggerFactory.getLogger(SocketRpcServer.class);
 
     /**
      * 线程池参数
@@ -40,10 +37,10 @@ public class RpcServer {
     private  static   final  int BLOCKING_QUEUE_CAPCITY=100;
 
     private ExecutorService threadPool;
-    private  final ServiceRegistry serviceRegistry;
+
     private  RpcRequestHandler rpcRequestHandler=new RpcRequestHandler();
-    public RpcServer(ServiceRegistry serviceRegistry){
-        this.serviceRegistry = serviceRegistry;
+    public SocketRpcServer(){
+
         BlockingQueue<Runnable> workQueue=new ArrayBlockingQueue<Runnable>(BLOCKING_QUEUE_CAPCITY);
         ThreadFactory threadFactory= Executors.defaultThreadFactory();
         this.threadPool=new ThreadPoolExecutor(CORE_POOL_SIZE,MAXINUM_POOL_SIZE,KEEP_ALIVE_TIME,TimeUnit.MINUTES,workQueue,threadFactory);
@@ -62,7 +59,7 @@ public class RpcServer {
             //通过accept方法监听客户端请求
             while((socket=server.accept())!=null){
                 logger.info("client connected");
-                threadPool.execute( new RpcRequestHandlerRunnable(socket,rpcRequestHandler,serviceRegistry));
+                threadPool.execute( new SocketRpcRequestHandlerRunnable(socket));
             }
             threadPool.shutdown();
         } catch (IOException e) {

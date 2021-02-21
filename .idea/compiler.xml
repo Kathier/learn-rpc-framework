@@ -16,4 +16,14 @@
     </annotationProcessing>
     <bytecodeTargetLevel target="15" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="example-client" options="" />
+      <module name="example-server" options="" />
+      <module name="hello-service-api" options="" />
+      <module name="learn-rpc-framework" options="" />
+      <module name="rpc-framework-common" options="" />
+      <module name="rpc-framework-simple" options="" />
+    </option>
+  </component>
 </project>

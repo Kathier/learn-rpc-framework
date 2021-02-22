@@ -2,10 +2,8 @@ package learnfast.pankai.transport.socket;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
-import learnfast.pankai.enumration.RpcErrorMessageEnum;
-import learnfast.pankai.enumration.RpcResponseCode;
 import learnfast.pankai.exception.RpcException;
-import learnfast.pankai.transport.RpcClient;
+import learnfast.pankai.transport.ClientTransport;
 import learnfast.pankai.util.RpcMessageChecker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -28,7 +26,7 @@ import java.net.Socket;
  * 关闭相关资源
  */
 @AllArgsConstructor
-public class SocketRpcClient implements RpcClient {
+public class SocketRpcClient implements ClientTransport {
     private static final Logger logger= LoggerFactory.getLogger(SocketRpcClient.class);
 
     private  String host;
@@ -52,13 +50,9 @@ public class SocketRpcClient implements RpcClient {
             //校验rpcRequest和rpcResponse
             RpcMessageChecker.check(rpcRequest,rpcResponse);
             return  rpcResponse.getData();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("occur exception when sendRpcRequest",e);
+            throw new RpcException("发送服务调用请求失败",e);
         }
-        return null;
-
-
     }
 }

@@ -1,6 +1,5 @@
 package learnfast.pankai.transport;
 import learnfast.pankai.dto.RpcRequest;
-import learnfast.pankai.transport.socket.SocketRpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +21,10 @@ public class RpcClientProxy implements InvocationHandler {
      * 用于发送请求给服务端，有socket和netty两种实现方式
      * @param rpcClient
      */
-    private  RpcClient rpcClient;
+    private ClientTransport clientTransport;
 
-    public RpcClientProxy(RpcClient rpcClient){
-      this.rpcClient=rpcClient;
+    public RpcClientProxy(ClientTransport clientTransport){
+      this.clientTransport = clientTransport;
     }
     //通过Proxy.newProxyInstance()方法获取某个类的代理对象
     @SuppressWarnings("unchecked") //告诉编译器忽略 unchecked 警告信息
@@ -53,6 +52,6 @@ public class RpcClientProxy implements InvocationHandler {
                 parameterTypes(method.getParameterTypes()).
                 requestId(UUID.randomUUID().toString()).
                 build();
-        return rpcClient.sendRpcRequest(rpcRequest);
+        return clientTransport.sendRpcRequest(rpcRequest);
     }
 }

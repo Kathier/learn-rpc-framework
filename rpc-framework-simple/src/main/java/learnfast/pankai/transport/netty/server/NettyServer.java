@@ -23,12 +23,12 @@ import org.slf4j.LoggerFactory;
  * 服务端，接收客户端的请求并处理，根据客户端的消息调用相应的方法，然后将结果返回客户端
  * @Description
  **/
-public class NettyRpcServer {
-    private  static  final Logger logger= LoggerFactory.getLogger(NettyRpcServer.class);
+public class NettyServer {
+    private  static  final Logger logger= LoggerFactory.getLogger(NettyServer.class);
     private  final   int port;
     private final KryoSerializer kryoSerializer;
 
-    public  NettyRpcServer(int port){
+    public NettyServer(int port){
         this.port=port;
         kryoSerializer=new KryoSerializer();
     }

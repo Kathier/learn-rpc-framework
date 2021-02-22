@@ -42,7 +42,7 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
             String serviceName= rpcRequest.getInterfaceName();
             Object service=serviceRegistry.getService(serviceName);
             Object result=rpcRequestHandler.handle(rpcRequest,service);
-            objectOutputStream.writeObject(RpcResponse.success(result));
+            objectOutputStream.writeObject(RpcResponse.success(result,rpcRequest.getRequestId()));
             //用于刷新此流，并将任何缓冲输出的字节立即写入基础流。
             objectOutputStream.flush();
         }catch (IOException | ClassNotFoundException  e) {

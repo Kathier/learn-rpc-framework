@@ -6,6 +6,7 @@ import learnfast.pankai.enumration.RpcErrorMessageEnum;
 import learnfast.pankai.enumration.RpcResponseCode;
 import learnfast.pankai.exception.RpcException;
 import learnfast.pankai.transport.RpcClient;
+import learnfast.pankai.util.RpcMessageChecker;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,21 +43,14 @@ public class SocketRpcClient implements RpcClient {
 
             //建立连接后获取输出流,发送消息
             ObjectOutputStream objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
+            //通过输出流发送数据到服务端
             objectOutputStream.writeObject(rpcRequest);
             //获取响应
             ObjectInputStream objectInputStream=new ObjectInputStream(socket.getInputStream());
+            //从输入流中读取出rpcResponse
             RpcResponse rpcResponse= (RpcResponse) objectInputStream.readObject();
-            if(null==rpcResponse){
-                logger.error("服务调用失败，serviceName:{}", rpcRequest.getInterfaceName());
-                throw new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE,
-                        "InterfaceName: "+rpcRequest.getInterfaceName());
-            }
-            if(rpcResponse.getCode()==null || !rpcResponse.getCode().equals(RpcResponseCode.SUCCESS.getCode())){
-                logger.error("调用服务失败，serviceName:{},rpcResponse:{}",
-                        rpcRequest.getInterfaceName(),rpcResponse);
-                throw  new RpcException(RpcErrorMessageEnum.SERVICE_INVOCATION_FAILURE,
-                        "InterfaceName: "+rpcRequest.getInterfaceName());
-            }
+            //校验rpcRequest和rpcResponse
+            RpcMessageChecker.check(rpcRequest,rpcResponse);
             return  rpcResponse.getData();
         } catch (IOException e) {
             e.printStackTrace();

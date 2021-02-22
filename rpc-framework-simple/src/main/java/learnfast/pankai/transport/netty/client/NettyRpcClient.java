@@ -12,6 +12,7 @@ import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.RpcClient;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
 import learnfast.pankai.transport.netty.codec.NettyKryoEncoder;
+import learnfast.pankai.util.RpcMessageChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,10 +106,12 @@ public class NettyRpcClient implements RpcClient {
             }
             //阻塞等待，直到channel关闭
             futureChannel.closeFuture().sync();
-            AttributeKey<RpcResponse> key=AttributeKey.valueOf("RpcResponse");
+            AttributeKey<RpcResponse> key=AttributeKey.valueOf("RpcResponse"+rpcRequest.getRequestId());
             //将服务端返回的数据即rpcResponse对象取出
             //channel实现了AttributeMap接口；每个channel上的AttributeMap属于共享数据
             RpcResponse rpcResponse=futureChannel.attr(key).get();
+            //检验rpcResponse和rpcRequest
+            RpcMessageChecker.check(rpcRequest,rpcResponse);
             return rpcResponse.getData();
         } catch (InterruptedException e) {
             logger.error("occur exception when connect server ",e);

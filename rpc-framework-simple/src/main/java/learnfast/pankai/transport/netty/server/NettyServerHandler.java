@@ -50,7 +50,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 //反射调用方法得到返回结果
                 Object result=rpcRequestHandler.handle(rpcRequest,service);
                 logger.info(String.format("server get result : %s",result.toString()));
-                ChannelFuture channelFuture=ctx.writeAndFlush(RpcResponse.success(result));
+                ChannelFuture channelFuture=ctx.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
                 channelFuture.addListener(ChannelFutureListener.CLOSE);
             } finally {
                 ReferenceCountUtil.release(msg);

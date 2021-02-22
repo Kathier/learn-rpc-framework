@@ -13,14 +13,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、重构优化了一些包的设计，增加了一些注释">
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、创建了一个线程池的工具类，重构代码">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/enumration/RpcErrorMessageEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/enumration/RpcErrorMessageEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyRpcClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +125,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.NettyClientMain" />
       <item itemvalue="Application.NettyServerMain" />
@@ -156,7 +169,7 @@
       <workItem from="1613699939783" duration="22827000" />
       <workItem from="1613788622272" duration="18886000" />
       <workItem from="1613872226761" duration="23958000" />
-      <workItem from="1613959143260" duration="1473000" />
+      <workItem from="1613959143260" duration="4381000" />
     </task>
     <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
       <created>1613288266119</created>
@@ -200,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613913245027</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1、创建了一个线程池的工具类，重构代码">
+      <created>1613960890438</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613960890438</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,7 +245,8 @@
     <MESSAGE value="1、提取公共部分，将服务的注册与服务的获取分离&#10;2、使用map存储服务和它实现的接口，key:service/Interface name; value:service;set存储注册的服务接口：serviceName" />
     <MESSAGE value="1、使用Kryo框架进行序列化&#10;2、使用Netty框架进行网络传输" />
     <MESSAGE value="1、重构优化了一些包的设计，增加了一些注释" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、重构优化了一些包的设计，增加了一些注释" />
+    <MESSAGE value="1、创建了一个线程池的工具类，重构代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、创建了一个线程池的工具类，重构代码" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="284" key="#Notifications" timestamp="1613288286931">

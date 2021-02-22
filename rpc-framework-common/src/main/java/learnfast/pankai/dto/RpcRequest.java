@@ -29,6 +29,7 @@ public class RpcRequest implements Serializable {
     private   String methodName;
     private Object [] parameters;
     private Class <?> [] parameterTypes;
+    private  String requestId;
 
 
 }

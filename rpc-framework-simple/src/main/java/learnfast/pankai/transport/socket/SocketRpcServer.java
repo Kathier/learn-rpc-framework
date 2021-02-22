@@ -1,6 +1,7 @@
 package learnfast.pankai.transport.socket;
 
 import learnfast.pankai.transport.RpcRequestHandler;
+import learnfast.pankai.util.ThreadPoolFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,25 +26,11 @@ import java.util.concurrent.*;
  **/
 public class SocketRpcServer {
 
-
     private static  final Logger logger=  LoggerFactory.getLogger(SocketRpcServer.class);
-
-    /**
-     * 线程池参数
-     */
-    private  static  final  int  CORE_POOL_SIZE=10;
-    private static  final  int MAXINUM_POOL_SIZE=100;
-    private  static  final int KEEP_ALIVE_TIME=1;
-    private  static   final  int BLOCKING_QUEUE_CAPCITY=100;
-
     private ExecutorService threadPool;
-
     private  RpcRequestHandler rpcRequestHandler=new RpcRequestHandler();
     public SocketRpcServer(){
-
-        BlockingQueue<Runnable> workQueue=new ArrayBlockingQueue<Runnable>(BLOCKING_QUEUE_CAPCITY);
-        ThreadFactory threadFactory= Executors.defaultThreadFactory();
-        this.threadPool=new ThreadPoolExecutor(CORE_POOL_SIZE,MAXINUM_POOL_SIZE,KEEP_ALIVE_TIME,TimeUnit.MINUTES,workQueue,threadFactory);
+       threadPool= ThreadPoolFactory.createDefautThreadPool("socket-server-rpc-pool");
     }
 
     /**

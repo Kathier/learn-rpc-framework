@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by PanKai on 2021/2/20 17:02
- * 开启服务端，接收客户端的请求并处理
+ * 服务端，接收客户端的请求并处理，根据客户端的消息调用相应的方法，然后将结果返回客户端
  * @Description
  **/
 public class NettyRpcServer {

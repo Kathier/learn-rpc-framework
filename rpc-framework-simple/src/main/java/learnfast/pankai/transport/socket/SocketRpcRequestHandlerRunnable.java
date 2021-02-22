@@ -39,9 +39,7 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
         try(ObjectInputStream objectInputStream=new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream objectOutputStream=new ObjectOutputStream(socket.getOutputStream());){
             RpcRequest rpcRequest= (RpcRequest) objectInputStream.readObject();
-            String serviceName= rpcRequest.getInterfaceName();
-            Object service=serviceRegistry.getService(serviceName);
-            Object result=rpcRequestHandler.handle(rpcRequest,service);
+            Object result=rpcRequestHandler.handle(rpcRequest);
             objectOutputStream.writeObject(RpcResponse.success(result,rpcRequest.getRequestId()));
             //用于刷新此流，并将任何缓冲输出的字节立即写入基础流。
             objectOutputStream.flush();

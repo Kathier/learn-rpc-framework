@@ -13,16 +13,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、创建了一个线程池的工具类，重构代码">
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、为每个请求加上了请求号&#10;2、抽取重构了rpcRequest和rpcResponse的校验类，客户端调用之后对之进行检查">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/dto/RpcResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/enumration/RpcErrorMessageEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/enumration/RpcErrorMessageEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/HelloServiceImpl2.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/HelloServiceImpl2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/target/classes/learnfast/pankai/dto/RpcRequest$RpcRequestBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/target/classes/learnfast/pankai/dto/RpcRequest$RpcRequestBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/target/classes/learnfast/pankai/dto/RpcRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/target/classes/learnfast/pankai/dto/RpcRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyRpcServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +173,7 @@
       <workItem from="1613699939783" duration="22827000" />
       <workItem from="1613788622272" duration="18886000" />
       <workItem from="1613872226761" duration="23958000" />
-      <workItem from="1613959143260" duration="4381000" />
+      <workItem from="1613959143260" duration="8422000" />
     </task>
     <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
       <created>1613288266119</created>
@@ -220,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613960890438</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1、为每个请求加上了请求号&#10;2、抽取重构了rpcRequest和rpcResponse的校验类，客户端调用之后对之进行检查">
+      <created>1613963603912</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1613963603912</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,7 +257,8 @@
     <MESSAGE value="1、使用Kryo框架进行序列化&#10;2、使用Netty框架进行网络传输" />
     <MESSAGE value="1、重构优化了一些包的设计，增加了一些注释" />
     <MESSAGE value="1、创建了一个线程池的工具类，重构代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、创建了一个线程池的工具类，重构代码" />
+    <MESSAGE value="1、为每个请求加上了请求号&#10;2、抽取重构了rpcRequest和rpcResponse的校验类，客户端调用之后对之进行检查" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、为每个请求加上了请求号&#10;2、抽取重构了rpcRequest和rpcResponse的校验类，客户端调用之后对之进行检查" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="284" key="#Notifications" timestamp="1613288286931">
@@ -277,22 +289,22 @@
       <screen x="0" y="0" width="1440" height="920" />
     </state>
     <state x="562" y="358" key="Github.ShareDialog/0.0.1440.920@0.0.1440.920" timestamp="1613293478151" />
-    <state width="1397" height="384" key="GridCell.Tab.0.bottom" timestamp="1613917834680">
+    <state width="1397" height="472" key="GridCell.Tab.0.bottom" timestamp="1613967325999">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="384" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613917834680" />
-    <state width="1397" height="384" key="GridCell.Tab.0.center" timestamp="1613917834680">
+    <state width="1397" height="472" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1613967325999" />
+    <state width="1397" height="472" key="GridCell.Tab.0.center" timestamp="1613967325999">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="384" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613917834680" />
-    <state width="1397" height="384" key="GridCell.Tab.0.left" timestamp="1613917834680">
+    <state width="1397" height="472" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1613967325999" />
+    <state width="1397" height="472" key="GridCell.Tab.0.left" timestamp="1613967325999">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="384" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613917834680" />
-    <state width="1397" height="384" key="GridCell.Tab.0.right" timestamp="1613917834680">
+    <state width="1397" height="472" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1613967325999" />
+    <state width="1397" height="472" key="GridCell.Tab.0.right" timestamp="1613967325999">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="384" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613917834680" />
+    <state width="1397" height="472" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1613967325999" />
     <state width="1397" height="384" key="GridCell.Tab.1.bottom" timestamp="1613917834680">
       <screen x="0" y="0" width="1440" height="920" />
     </state>

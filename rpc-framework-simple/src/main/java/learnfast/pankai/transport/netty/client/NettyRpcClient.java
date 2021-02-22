@@ -110,6 +110,7 @@ public class NettyRpcClient implements RpcClient {
             //将服务端返回的数据即rpcResponse对象取出
             //channel实现了AttributeMap接口；每个channel上的AttributeMap属于共享数据
             RpcResponse rpcResponse=futureChannel.attr(key).get();
+            logger.info("client get response from channel:{}",rpcResponse);
             //检验rpcResponse和rpcRequest
             RpcMessageChecker.check(rpcRequest,rpcResponse);
             return rpcResponse.getData();

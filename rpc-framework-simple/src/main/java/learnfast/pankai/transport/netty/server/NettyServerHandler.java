@@ -25,14 +25,13 @@ import java.util.concurrent.ThreadFactory;
  **/
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
-    private static  RpcRequestHandler rpcRequestHandler;
-    private  static ServiceRegistry serviceRegistry;
+    private static  final  RpcRequestHandler rpcRequestHandler;
+    private  static  final  String THREAD_NAME_PREFIX="netty-server-rpc-pool";
     private  static ExecutorService threadPool;
 
     static {
         rpcRequestHandler=new RpcRequestHandler();
-        serviceRegistry=new DefaultServiceRegistry();
-        threadPool= ThreadPoolFactory.createDefautThreadPool("netty-server-rpc-pool");
+        threadPool= ThreadPoolFactory.createDefautThreadPool(THREAD_NAME_PREFIX);
     }
 
     @Override
@@ -45,10 +44,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 logger.info(String.format("server receieve msg :%s ",msg));
                 RpcRequest rpcRequest= (RpcRequest) msg;
                 String interfaceName=rpcRequest.getInterfaceName();
-                //获取服务
-                Object service=serviceRegistry.getService(interfaceName);
-                //反射调用方法得到返回结果
-                Object result=rpcRequestHandler.handle(rpcRequest,service);
+
+                //反射调用目标方法（客户端需要执行的方法）得到返回结果
+                Object result=rpcRequestHandler.handle(rpcRequest);
                 logger.info(String.format("server get result : %s",result.toString()));
                 ChannelFuture channelFuture=ctx.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
                 channelFuture.addListener(ChannelFutureListener.CLOSE);

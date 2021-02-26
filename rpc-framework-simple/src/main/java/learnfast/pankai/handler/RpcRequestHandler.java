@@ -1,14 +1,13 @@
-package learnfast.pankai.transport;
+package learnfast.pankai.handler;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.enumration.RpcResponseCode;
-import learnfast.pankai.registry.DefaultServiceRegistry;
-import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.provider.ServiceProvider;
+import learnfast.pankai.provider.ServiceProviderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.print.attribute.standard.RequestingUserName;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -19,15 +18,15 @@ import java.lang.reflect.Method;
  **/
 public class RpcRequestHandler {
     private static final Logger logger = LoggerFactory.getLogger(RpcRequestHandler.class);
-    private  static final ServiceRegistry serviceRegistry;
+    private  static final ServiceProvider serviceProvider;
     static {
-        serviceRegistry=new DefaultServiceRegistry();
+        serviceProvider=new ServiceProviderImpl();
     }
 
     public Object handle(RpcRequest rpcRequest){
         Object result =null;
         //通过注册中心获取到目标类（客户端需要调用类）
-        Object service=serviceRegistry.getService(rpcRequest.getInterfaceName());
+        Object service=serviceProvider.getServiceProvider(rpcRequest.getInterfaceName());
         try {
             result=invokeTargetMethod(rpcRequest,service);
             logger.info("service:{} successfully invoke method :{}"

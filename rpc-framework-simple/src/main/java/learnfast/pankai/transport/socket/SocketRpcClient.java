@@ -3,6 +3,8 @@ package learnfast.pankai.transport.socket;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.exception.RpcException;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.registry.ZKServiceRegistry;
 import learnfast.pankai.transport.ClientTransport;
 import learnfast.pankai.util.RpcMessageChecker;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 
@@ -28,17 +31,18 @@ import java.net.Socket;
 @AllArgsConstructor
 public class SocketRpcClient implements ClientTransport {
     private static final Logger logger= LoggerFactory.getLogger(SocketRpcClient.class);
-
-    private  String host;
-    private  int port;
+    private final ServiceRegistry serviceRegistry;
+    public SocketRpcClient(){
+        serviceRegistry=new ZKServiceRegistry();
+    }
 
 
 
     @Override
     public Object sendRpcRequest(RpcRequest rpcRequest) {
-        try {
-            Socket socket = new Socket(host, port);
-
+        InetSocketAddress inetSocketAddress=serviceRegistry.lookUpService(rpcRequest.getInterfaceName());
+        try (Socket socket = new Socket()){
+            socket.connect(inetSocketAddress);
             //建立连接后获取输出流,发送消息
             ObjectOutputStream objectOutputStream=new ObjectOutputStream(socket.getOutputStream());
             //通过输出流发送数据到服务端

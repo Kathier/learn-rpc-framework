@@ -2,9 +2,10 @@ package learnfast.pankai.transport.socket;
 
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
-import learnfast.pankai.registry.DefaultServiceRegistry;
+import learnfast.pankai.provider.ServiceProviderImpl;
 import learnfast.pankai.registry.ServiceRegistry;
-import learnfast.pankai.transport.RpcRequestHandler;
+import learnfast.pankai.handler.RpcRequestHandler;
+import learnfast.pankai.registry.ZKServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +24,10 @@ public class SocketRpcRequestHandlerRunnable implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcRequestHandlerRunnable.class);
     private Socket socket;
     private static  RpcRequestHandler rpcRequestHandler;
-    private static  ServiceRegistry serviceRegistry;
+
     //静态代码块随着类的加载而执行，而且只执行一次
     static {
         rpcRequestHandler=new RpcRequestHandler();
-        serviceRegistry = new DefaultServiceRegistry();
     }
     public SocketRpcRequestHandlerRunnable(Socket socket) {
         this.socket = socket;

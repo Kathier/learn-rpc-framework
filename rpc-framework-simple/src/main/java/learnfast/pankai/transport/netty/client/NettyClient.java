@@ -25,6 +25,9 @@ public class NettyClient {
     private static final Bootstrap bootstrap;
     private static final EventLoopGroup evntLoopGroup;
 
+    private NettyClient() {
+
+    }
     //初始化相关资源
     static {
         //Bootstrap用来连接远程主机，有1个EventLoopGroup
@@ -54,9 +57,7 @@ public class NettyClient {
                 });
     }
 
-    private NettyClient() {
 
-    }
 
     public static void close() {
         logger.info("call close method");

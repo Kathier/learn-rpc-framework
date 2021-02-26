@@ -12,11 +12,17 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.provider.ServiceProvider;
+import learnfast.pankai.provider.ServiceProviderImpl;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.registry.ZKServiceRegistry;
 import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
 import learnfast.pankai.transport.netty.codec.NettyKryoEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.InetSocketAddress;
 
 /**
  * Created by PanKai on 2021/2/20 17:02
@@ -25,14 +31,26 @@ import org.slf4j.LoggerFactory;
  **/
 public class NettyServer {
     private  static  final Logger logger= LoggerFactory.getLogger(NettyServer.class);
+    private  final  String host;
     private  final   int port;
     private final KryoSerializer kryoSerializer;
+    private  final ServiceRegistry serviceRegistry;
+    private final ServiceProvider serviceProvider;
 
-    public NettyServer(int port){
+    public NettyServer(String host,int port){
+        this.host=host;
         this.port=port;
         kryoSerializer=new KryoSerializer();
+        serviceRegistry=new ZKServiceRegistry();
+        serviceProvider=new ServiceProviderImpl();
     }
-    public  void run(){
+    public <T> void publishService(Object service,Class<T> serviceClass){
+        serviceProvider.addServiceProvider(service);
+        serviceRegistry.registerService(serviceClass.getCanonicalName(),new InetSocketAddress(host,port));
+        start();
+    }
+
+    public  void start(){
         // bossGroup线程的机制是多路复用，虽然是一个线程但是可以监听多个新连接
         EventLoopGroup bossGroup=new NioEventLoopGroup();
         EventLoopGroup workerGroup=new NioEventLoopGroup();
@@ -64,7 +82,7 @@ public class NettyServer {
                     .option(ChannelOption.SO_BACKLOG,128)
                     .option(ChannelOption.SO_KEEPALIVE,true); //是否使用TCP的心跳机制
             //绑定端口，同步等待绑定成功
-            ChannelFuture channelFuture=bootstrap.bind(port).sync();
+            ChannelFuture channelFuture=bootstrap.bind(host,port).sync();
             //等待服务端监听端口关闭
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {

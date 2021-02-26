@@ -1,11 +1,16 @@
 package learnfast.pankai.transport.socket;
 
-import learnfast.pankai.transport.RpcRequestHandler;
+import learnfast.pankai.handler.RpcRequestHandler;
+import learnfast.pankai.provider.ServiceProvider;
+import learnfast.pankai.provider.ServiceProviderImpl;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.registry.ZKServiceRegistry;
 import learnfast.pankai.util.ThreadPoolFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -29,18 +34,30 @@ public class SocketRpcServer {
     private static  final Logger logger=  LoggerFactory.getLogger(SocketRpcServer.class);
     private final  ExecutorService threadPool;
     private  RpcRequestHandler rpcRequestHandler=new RpcRequestHandler();
-    public SocketRpcServer(){
-       threadPool= ThreadPoolFactory.createDefautThreadPool("socket-server-rpc-pool");
+    private  final  String host;
+    private final  int port;
+    private  final ServiceRegistry serviceRegistry;
+    private  final ServiceProvider serviceProvider;
+    public SocketRpcServer(String host,int port){
+        this.host=host;
+        this.port=port;
+        threadPool= ThreadPoolFactory.createDefautThreadPool("socket-server-rpc-pool");
+        serviceRegistry=new ZKServiceRegistry();
+        serviceProvider=new ServiceProviderImpl();
     }
 
+    public <T> void publishService(Object service,Class<T> serviceClass){
+        serviceProvider.addServiceProvider(service);
+        serviceRegistry.registerService(serviceClass.getCanonicalName(),new InetSocketAddress(host,port));
+        start();
+    }
     /**
      * 服务启动
-     * @param port
      */
-    public void start(int port){
+    private void start(){
 
-        try {
-            ServerSocket server=new ServerSocket(port);
+        try ( ServerSocket server=new ServerSocket();){
+            server.bind(new InetSocketAddress(host,port));
             logger.info("server starts...");
             Socket socket;
             //通过accept方法监听客户端请求

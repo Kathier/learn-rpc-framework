@@ -1,6 +1,6 @@
 package learnfast.pankai;
 
-import learnfast.pankai.registry.DefaultServiceRegistry;
+import learnfast.pankai.provider.ServiceProviderImpl;
 import learnfast.pankai.transport.socket.SocketRpcServer;
 
 /**
@@ -12,14 +12,9 @@ import learnfast.pankai.transport.socket.SocketRpcServer;
  **/
 public class RpcFrameWorkSimpleServerMain {
     public  static void main(String [] args){
-        HelloService helloService=new HelloServiceImpl2();
-        HiService hiService=new HelloServiceImpl2();
-        DefaultServiceRegistry defaultServiceRegistry=new DefaultServiceRegistry();
-        //手动注册
-        defaultServiceRegistry.register(helloService);
-        defaultServiceRegistry.register(hiService);
-        SocketRpcServer socketRpcServer =new SocketRpcServer();
-        socketRpcServer.start(9999);
+        HelloService helloService=new HelloServiceImpl();
+        SocketRpcServer socketRpcServer =new SocketRpcServer("127.0.0.1",8080);
+        socketRpcServer.publishService(helloService,HelloService.class);
     }
 
 }

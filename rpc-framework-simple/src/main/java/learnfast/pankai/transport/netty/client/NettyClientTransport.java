@@ -8,6 +8,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.registry.ServiceRegistry;
+import learnfast.pankai.registry.ZKServiceRegistry;
 import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.ClientTransport;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
@@ -41,9 +43,9 @@ import java.util.concurrent.atomic.AtomicReference;
  **/
 public class NettyClientTransport implements ClientTransport {
     private static final Logger logger = LoggerFactory.getLogger(NettyClientTransport.class);
-    private InetSocketAddress inetSocketAddress;
-    public NettyClientTransport(InetSocketAddress inetSocketAddress){
-        this.inetSocketAddress=inetSocketAddress;
+    private ServiceRegistry serviceRegistry;
+    public NettyClientTransport(){
+        this.serviceRegistry= new ZKServiceRegistry();
 
     }
 
@@ -58,6 +60,7 @@ public class NettyClientTransport implements ClientTransport {
         // 原子意味着多个线程试图改变同一个AtomicReference(例如比较和交换操作)将不会使得AtomicReference处于不一致的状态
         AtomicReference<Object> result=new AtomicReference<>(null);
         try {
+            InetSocketAddress inetSocketAddress=serviceRegistry.lookUpService(rpcRequest.getInterfaceName());
             Channel channel=ChannelProvider.get(inetSocketAddress);
             if(channel.isActive()){
                 channel.writeAndFlush(rpcRequest).addListener(future -> {

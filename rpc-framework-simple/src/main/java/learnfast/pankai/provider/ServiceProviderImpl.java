@@ -1,12 +1,11 @@
-package learnfast.pankai.registry;
+package learnfast.pankai.provider;
 
 import learnfast.pankai.enumration.RpcErrorMessageEnum;
 import learnfast.pankai.exception.RpcException;
+import learnfast.pankai.registry.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.FileAlreadyExistsException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 默认的服务注册中心实现,通过map保存服务信息，可以改进为使用zookeeper
  * @Description
  **/
-public class DefaultServiceRegistry implements ServiceRegistry{
-    private static final Logger logger = LoggerFactory.getLogger(DefaultServiceRegistry.class);
+public class ServiceProviderImpl implements ServiceProvider {
+    private static final Logger logger = LoggerFactory.getLogger(ServiceProviderImpl.class);
 
     /**
      * 定义一个map存储接口和它的多个实现
@@ -35,8 +34,9 @@ public class DefaultServiceRegistry implements ServiceRegistry{
      * @param service
      * @param <T>
      */
+
     @Override
-    public synchronized  <T> void register(Object service) {
+    public <T> void addServiceProvider(T service) {
         String serviceName=service.getClass().getCanonicalName();
         if(registeredService.contains(serviceName)){
             return ;
@@ -52,11 +52,10 @@ public class DefaultServiceRegistry implements ServiceRegistry{
         }
         registeredService.add(serviceName);
         logger.info("add service :{}  and interfaces :{} ",service,service.getClass().getInterfaces());
-
     }
 
     @Override
-    public Object getService(String serviceName) {
+    public Object getServiceProvider(String serviceName) {
         Object service=serviceMap.get(serviceName);
         if(service==null){
             throw new RpcException(RpcErrorMessageEnum.SERVICE_CAN_NOT_BE_FOUND);

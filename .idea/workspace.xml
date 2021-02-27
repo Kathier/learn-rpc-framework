@@ -13,20 +13,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、使用zookeeper来进行服务注册">
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、解决通过接口名添加服务的问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/NettyClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/NettyClientMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/RpcFrameworkSimpleClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/RpcFrameworkSimpleClientMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/HelloServiceImpl2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/NettyServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/NettyServerMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/util/CuratorHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/util/CuratorHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/handler/RpcRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/handler/RpcRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProviderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProviderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ServiceRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ZKServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ZKServiceRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientTransport.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientTransport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/test/java/learnfast/pankai/registry/ZkServiceRegistryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/test/java/learnfast/pankai/registry/ZkServiceRegistryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/DefaultServiceRegistry.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/ServiceRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/ServiceRegistry.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/transport/RpcClientProxy.class" beforeDir="false" />
@@ -202,7 +198,7 @@
       <workItem from="1614045333227" duration="13997000" />
       <workItem from="1614264333693" duration="649000" />
       <workItem from="1614305196252" duration="3348000" />
-      <workItem from="1614423089886" duration="1089000" />
+      <workItem from="1614423089886" duration="2464000" />
     </task>
     <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
       <created>1613288266119</created>
@@ -281,7 +277,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614311001879</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="1、解决通过接口名添加服务的问题">
+      <created>1614424592997</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1614424592998</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,7 +314,8 @@
     <MESSAGE value="1、把 server handler 中的 服务获取（serviceRegistry ）的逻辑迁移到通用类request handler中去" />
     <MESSAGE value="1、增加了netty客户端连接失败重试机制" />
     <MESSAGE value="1、使用zookeeper来进行服务注册" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、使用zookeeper来进行服务注册" />
+    <MESSAGE value="1、解决通过接口名添加服务的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、解决通过接口名添加服务的问题" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="284" key="#Notifications" timestamp="1613288286931">
@@ -322,10 +326,10 @@
       <screen x="0" y="0" width="1440" height="920" />
     </state>
     <state x="176" y="116" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.920@0.0.1440.920" timestamp="1613878287115" />
-    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser" timestamp="1614000249517">
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser" timestamp="1614425119795">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1614000249517" />
+    <state x="526" y="177" key="#com.intellij.ide.util.MemberChooser/0.0.1440.920@0.0.1440.920" timestamp="1614425119795" />
     <state x="243" y="384" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1614082984187">
       <screen x="0" y="0" width="1440" height="920" />
     </state>

@@ -13,7 +13,8 @@ public class ZkServiceRegistryTest {
         ServiceRegistry serviceRegistry=new ZKServiceRegistry();
         InetSocketAddress givenInetSocketAddress=new InetSocketAddress("127.0.0.1",9333);
         serviceRegistry.registerService("learnfast.pankai.registry.ZkServiceRegistry",givenInetSocketAddress);
-        InetSocketAddress acquiredInetSocketAddress=serviceRegistry.lookUpService("learnfast.pankai.registry.ZkServiceRegistry");
+        ServiceDiscovery serviceDiscovery=new ZKServiceDiscovery();
+        InetSocketAddress acquiredInetSocketAddress=serviceDiscovery.lookupService("learnfast.pankai.registry.ZkServiceRegistry");
         assertEquals(givenInetSocketAddress.toString(), acquiredInetSocketAddress.toString());
     }
 

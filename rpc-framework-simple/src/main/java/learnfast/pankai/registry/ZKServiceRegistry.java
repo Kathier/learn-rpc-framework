@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
 
 /**
  * Created by PanKai on 2021/2/22 21:23
- * 基于zookeeper实现服务注册中心
+ * 基于zookeeper实现服务注册
  **/
 public class ZKServiceRegistry implements ServiceRegistry{
     private static final Logger logger = LoggerFactory.getLogger(ZKServiceRegistry.class);
@@ -30,12 +30,5 @@ public class ZKServiceRegistry implements ServiceRegistry{
 
     }
 
-    @Override
-    public InetSocketAddress lookUpService(String serviceName) {
-        //负载均衡，这里直接去了找到的第一个服务的地址
-        String serviceAddress=CuratorHelper.getChildrenNodes(zkClient,serviceName).get(0);
-        logger.info("成功找到服务地址：{}",serviceAddress);
 
-        return new InetSocketAddress(serviceAddress.split(":")[0],Integer.parseInt(serviceAddress.split(":")[1]));
-    }
 }

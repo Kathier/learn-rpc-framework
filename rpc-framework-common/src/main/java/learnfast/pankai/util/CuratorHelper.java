@@ -26,7 +26,10 @@ public class CuratorHelper {
     private static final int CONNECTION_TIMEOUT_MS = 10 * 1000;
     private static final int SESSION_TIMEOUT_MS = 60 * 1000;
     public static final String ZK_REGISTER_ROOT_PATH = "/my-rpc";
-    private  static  final Map<String, List<String>> serviceRegisterMap=new ConcurrentHashMap<>();
+    private  static   Map<String, List<String>> serviceRegisterMap=new ConcurrentHashMap<>();
+    public  CuratorHelper(){
+
+    }
     public  static CuratorFramework getZKClient(){
         //重试策略：重试三次，两次重试之间的间隔为100s,以防出现连接问题
         RetryPolicy retryPolicy=new RetryNTimes(MAX_RETRIES,SLEEP_MS_BETWEEN_RETRIES);
@@ -52,6 +55,13 @@ public class CuratorHelper {
         }
 
     }
+
+    /**
+     * 获取某个字节下的子节点，即所有提供服务的生产者的地址
+     * @param zkClient
+     * @param serviceName
+     * @return
+     */
 
     public  static  List<String> getChildrenNodes(final  CuratorFramework zkClient,final String serviceName){
         if(serviceRegisterMap.containsKey(serviceName)){

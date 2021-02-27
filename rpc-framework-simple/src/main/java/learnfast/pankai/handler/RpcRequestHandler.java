@@ -23,6 +23,11 @@ public class RpcRequestHandler {
         serviceProvider=new ServiceProviderImpl();
     }
 
+    /**
+     *  处理rpcRequest，调用对应的处理方法，然后返回方法执行结果
+     * @param rpcRequest
+     * @return
+     */
     public Object handle(RpcRequest rpcRequest){
         Object result =null;
         //通过注册中心获取到目标类（客户端需要调用类）

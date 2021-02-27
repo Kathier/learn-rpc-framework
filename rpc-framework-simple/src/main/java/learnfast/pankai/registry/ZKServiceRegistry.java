@@ -32,6 +32,7 @@ public class ZKServiceRegistry implements ServiceRegistry{
 
     @Override
     public InetSocketAddress lookUpService(String serviceName) {
+        //负载均衡，这里直接去了找到的第一个服务的地址
         String serviceAddress=CuratorHelper.getChildrenNodes(zkClient,serviceName).get(0);
         logger.info("成功找到服务地址：{}",serviceAddress);
 

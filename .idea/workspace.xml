@@ -13,27 +13,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、增加了netty客户端连接失败重试机制">
+    <list default="true" id="0e668907-6d17-49e3-97bd-f3dafae62f52" name="Default Changelist" comment="1、使用zookeeper来进行服务注册">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/NettyClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/NettyClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/RpcFrameworkSimpleClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/src/main/java/learnfast/pankai/RpcFrameworkSimpleClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/HelloServiceImpl2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/NettyServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/NettyServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/RpcFrameWorkSimpleServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/src/main/java/learnfast/pankai/RpcFrameWorkSimpleServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/NettyClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/NettyClientMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/RpcFrameworkSimpleClientMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-client/target/classes/learnfast/pankai/RpcFrameworkSimpleClientMain.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/HelloServiceImpl2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/NettyServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/NettyServerMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/RpcFrameWorkSimpleServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/example-server/target/classes/learnfast/pankai/RpcFrameWorkSimpleServerMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/DefaultServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProviderImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ServiceRegistry.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/proxy/RpcClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/RpcRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/handler/RpcRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/util/CuratorHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-common/src/main/java/learnfast/pankai/util/CuratorHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/handler/RpcRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/handler/RpcRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProviderImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/provider/ServiceProviderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ZKServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/registry/ZKServiceRegistry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientTransport.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/client/NettyClientTransport.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/netty/server/NettyServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcRequestHandlerRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/src/main/java/learnfast/pankai/transport/socket/SocketRpcServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/DefaultServiceRegistry.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/ServiceRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-framework-simple/target/classes/learnfast/pankai/registry/ServiceRegistry.class" afterDir="false" />
@@ -144,6 +136,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ZkServiceRegistryTest.should_register_service_successful_and_lookup_service_by_service_name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="rpc-framework-simple" />
       <extension name="coverage">
@@ -198,7 +201,8 @@
       <workItem from="1613959143260" duration="21553000" />
       <workItem from="1614045333227" duration="13997000" />
       <workItem from="1614264333693" duration="649000" />
-      <workItem from="1614305196252" duration="3197000" />
+      <workItem from="1614305196252" duration="3348000" />
+      <workItem from="1614423089886" duration="1089000" />
     </task>
     <task id="LOCAL-00001" summary="搭建rpc框架，包含五个模块，example-client模拟客户端，example-server模拟服务端，hello-service-api存放服务接口，rpc-framework-common存放一些实体对象，枚举、工具类，rpc-framework-simple存放rpc框架的核心实现类">
       <created>1613288266119</created>
@@ -270,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613988603390</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="1、使用zookeeper来进行服务注册">
+      <created>1614311001879</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1614311001879</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +310,8 @@
     <MESSAGE value="1、为每个请求加上了请求号&#10;2、抽取重构了rpcRequest和rpcResponse的校验类，客户端调用之后对之进行检查" />
     <MESSAGE value="1、把 server handler 中的 服务获取（serviceRegistry ）的逻辑迁移到通用类request handler中去" />
     <MESSAGE value="1、增加了netty客户端连接失败重试机制" />
-    <option name="LAST_COMMIT_MESSAGE" value="1、增加了netty客户端连接失败重试机制" />
+    <MESSAGE value="1、使用zookeeper来进行服务注册" />
+    <option name="LAST_COMMIT_MESSAGE" value="1、使用zookeeper来进行服务注册" />
   </component>
   <component name="WindowStateProjectService">
     <state x="457" y="284" key="#Notifications" timestamp="1613288286931">
@@ -338,22 +350,22 @@
       <screen x="0" y="0" width="1440" height="920" />
     </state>
     <state x="562" y="358" key="Github.ShareDialog/0.0.1440.920@0.0.1440.920" timestamp="1613293478151" />
-    <state width="1397" height="431" key="GridCell.Tab.0.bottom" timestamp="1614310626904">
+    <state width="1397" height="431" key="GridCell.Tab.0.bottom" timestamp="1614311084740">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="431" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1614310626904" />
-    <state width="1397" height="431" key="GridCell.Tab.0.center" timestamp="1614310626904">
+    <state width="1397" height="431" key="GridCell.Tab.0.bottom/0.0.1440.920@0.0.1440.920" timestamp="1614311084740" />
+    <state width="1397" height="431" key="GridCell.Tab.0.center" timestamp="1614311084740">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="431" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1614310626904" />
-    <state width="1397" height="431" key="GridCell.Tab.0.left" timestamp="1614310626904">
+    <state width="1397" height="431" key="GridCell.Tab.0.center/0.0.1440.920@0.0.1440.920" timestamp="1614311084740" />
+    <state width="1397" height="431" key="GridCell.Tab.0.left" timestamp="1614311084740">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="431" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1614310626904" />
-    <state width="1397" height="431" key="GridCell.Tab.0.right" timestamp="1614310626904">
+    <state width="1397" height="431" key="GridCell.Tab.0.left/0.0.1440.920@0.0.1440.920" timestamp="1614311084740" />
+    <state width="1397" height="431" key="GridCell.Tab.0.right" timestamp="1614311084740">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state width="1397" height="431" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1614310626904" />
+    <state width="1397" height="431" key="GridCell.Tab.0.right/0.0.1440.920@0.0.1440.920" timestamp="1614311084740" />
     <state width="1397" height="384" key="GridCell.Tab.1.bottom" timestamp="1613917834680">
       <screen x="0" y="0" width="1440" height="920" />
     </state>

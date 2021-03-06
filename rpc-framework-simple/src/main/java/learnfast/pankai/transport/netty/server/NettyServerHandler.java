@@ -44,9 +44,14 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 //反射调用目标方法（客户端需要执行的方法）得到返回结果
                 Object result=rpcRequestHandler.handle(rpcRequest);
                 logger.info(String.format("server get result : %s",result.toString()));
-                ChannelFuture channelFuture=ctx.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
-                channelFuture.addListener(ChannelFutureListener.CLOSE);
+                if(ctx.channel().isActive() && ctx.channel().isWritable()){
+                    //返回方法执行结果给客户端
+                    ctx.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
+                }else{
+                    logger.error("not writeable now ,message droped");
+                }
             } finally {
+                //释放byteBuf，避免内存泄漏
                 ReferenceCountUtil.release(msg);
             }
         });

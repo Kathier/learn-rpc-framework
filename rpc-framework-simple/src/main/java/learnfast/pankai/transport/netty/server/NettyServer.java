@@ -1,5 +1,4 @@
 package learnfast.pankai.transport.netty.server;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -12,48 +11,46 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.factory.SingletonFactory;
 import learnfast.pankai.provider.ServiceProvider;
 import learnfast.pankai.provider.ServiceProviderImpl;
-import learnfast.pankai.registry.ServiceRegistry;
-import learnfast.pankai.registry.ZKServiceRegistry;
 import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
 import learnfast.pankai.transport.netty.codec.NettyKryoEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-import java.net.InetSocketAddress;
 
 /**
  * Created by PanKai on 2021/2/20 17:02
  * 服务端，接收客户端的请求并处理，根据客户端的消息调用相应的方法，然后将结果返回客户端
  * @Description
  **/
-public class NettyServer {
+@Slf4j
+@Component
+public class NettyServer  {
+    public static final int PORT = 9998;
     private  static  final Logger logger= LoggerFactory.getLogger(NettyServer.class);
-    private  final  String host;
-    private  final   int port;
     private final KryoSerializer kryoSerializer;
-    private  final ServiceRegistry serviceRegistry;
-    private final ServiceProvider serviceProvider;
 
-    public NettyServer(String host,int port){
-        this.host=host;
-        this.port=port;
+    public NettyServer(){
         kryoSerializer=new KryoSerializer();
-        serviceRegistry=new ZKServiceRegistry();
-        serviceProvider=new ServiceProviderImpl();
     }
-    public <T> void publishService(T service,Class<T> serviceClass){
-        serviceProvider.addServiceProvider(service,serviceClass);
-        serviceRegistry.registerService(serviceClass.getCanonicalName(),new InetSocketAddress(host,port));
-        start();
+    private final ServiceProvider serviceProvider = SingletonFactory.getInstance(ServiceProviderImpl.class);
+
+    public void registerService(Object service, String serviceName) {
+        serviceProvider.publishService(service, serviceName);
     }
 
-    public  void start(){
+    public  void start() throws UnknownHostException {
         // bossGroup线程的机制是多路复用，虽然是一个线程但是可以监听多个新连接
         EventLoopGroup bossGroup=new NioEventLoopGroup();
         EventLoopGroup workerGroup=new NioEventLoopGroup();
+        String host= InetAddress.getLocalHost().getHostAddress();
         try {
             ServerBootstrap bootstrap=new ServerBootstrap();
             //初始化两个线程，一个负责处理新的连接，一个负责处理读写
@@ -82,7 +79,7 @@ public class NettyServer {
                     .option(ChannelOption.SO_BACKLOG,128)
                     .option(ChannelOption.SO_KEEPALIVE,true); //是否使用TCP的心跳机制
             //绑定端口，同步等待绑定成功
-            ChannelFuture channelFuture=bootstrap.bind(host,port).sync();
+            ChannelFuture channelFuture=bootstrap.bind(host,PORT).sync();
             //等待服务端监听端口关闭
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {

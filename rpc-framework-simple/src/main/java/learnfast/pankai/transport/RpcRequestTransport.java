@@ -1,6 +1,7 @@
 package learnfast.pankai.transport;
 
 import learnfast.pankai.dto.RpcRequest;
+import learnfast.pankai.extension.SPI;
 
 /**
  * Created by PanKai on 2021/2/19 20:32
@@ -9,6 +10,7 @@ import learnfast.pankai.dto.RpcRequest;
  *  return 服务端返回的数据
  * @Description
  **/
-public interface ClientTransport {
+@SPI
+public interface RpcRequestTransport {
     Object sendRpcRequest(RpcRequest rpcRequest);
 }

@@ -1,8 +1,6 @@
 package learnfast.pankai.transport.netty.client;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.AttributeKey;
 import io.netty.util.ReferenceCountUtil;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.factory.SingletonFactory;
@@ -17,9 +15,9 @@ import org.slf4j.LoggerFactory;
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(NettyClientHandler.class);
     private final UnprocessedRequests unprocessedRequests;
-
     public NettyClientHandler() {
         this.unprocessedRequests = SingletonFactory.getInstance(UnprocessedRequests.class);
+
     }
     //读取服务端发来的信息
     @Override

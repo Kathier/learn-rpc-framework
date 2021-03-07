@@ -1,5 +1,7 @@
 package learnfast.pankai.registry;
 
+import learnfast.pankai.extension.SPI;
+
 import java.net.InetSocketAddress;
 
 /**
@@ -7,6 +9,7 @@ import java.net.InetSocketAddress;
  * 服务注册中心接口
  * @Description
  **/
+@SPI
 public interface ServiceRegistry {
     /**
      * 注册服务

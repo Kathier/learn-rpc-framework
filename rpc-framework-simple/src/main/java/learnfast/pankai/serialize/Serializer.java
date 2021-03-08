@@ -1,5 +1,7 @@
 package learnfast.pankai.serialize;
 
+import learnfast.pankai.extension.SPI;
+
 /**
  * Created by PanKai on 2021/2/19 16:49
  *

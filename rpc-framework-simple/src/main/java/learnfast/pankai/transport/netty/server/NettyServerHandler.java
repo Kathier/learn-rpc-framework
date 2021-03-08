@@ -1,9 +1,16 @@
 package learnfast.pankai.transport.netty.server;
 
 import io.netty.channel.*;
+import io.netty.handler.timeout.IdleState;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
+import learnfast.pankai.constants.RpcConstants;
+import learnfast.pankai.dto.RpcMessage;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.enumration.RpcMessageTypeEnum;
+import learnfast.pankai.enumration.RpcResponseCode;
+import learnfast.pankai.enumration.SerializationTypeEnum;
 import learnfast.pankai.handler.RpcRequestHandler;
 import learnfast.pankai.util.ThreadPoolFactory;
 import org.slf4j.Logger;
@@ -38,24 +45,54 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             logger.info(String.format("server handle message from client by thread : %s",Thread.currentThread().getName()));
             try {
                 logger.info(String.format("server receieve msg :%s ",msg));
-                RpcRequest rpcRequest= (RpcRequest) msg;
-                String interfaceName=rpcRequest.getInterfaceName();
+                byte messageType = ((RpcMessage) msg).getMessageType();
+                RpcMessage rpcMessage = new RpcMessage();
+                rpcMessage.setCodec(SerializationTypeEnum.KRYO.getCode());
 
-                //反射调用目标方法（客户端需要执行的方法）得到返回结果
-                Object result=rpcRequestHandler.handle(rpcRequest);
-                logger.info(String.format("server get result : %s",result.toString()));
-                if(ctx.channel().isActive() && ctx.channel().isWritable()){
-                    //返回方法执行结果给客户端
-                    ctx.writeAndFlush(RpcResponse.success(result,rpcRequest.getRequestId()));
+                if (messageType == RpcConstants.HEARTBEAT_REQUEST_TYPE) {
+                    rpcMessage.setMessageType(RpcConstants.HEARTBEAT_RESPONSE_TYPE);
+                    rpcMessage.setData(RpcConstants.PONG);
                 }else{
-                    logger.error("not writeable now ,message droped");
+                    RpcRequest rpcRequest = (RpcRequest) ((RpcMessage) msg).getData();
+                    //反射调用目标方法（客户端需要执行的方法）得到返回结果
+                    Object result=rpcRequestHandler.handle(rpcRequest);
+                    logger.info(String.format("server get result : %s",result.toString()));
+                    rpcMessage.setMessageType(RpcConstants.RESPONSE_TYPE);
+                    if(ctx.channel().isActive() && ctx.channel().isWritable()){
+                        RpcResponse<Object> rpcResponse = RpcResponse.success(result, rpcRequest.getRequestId());
+                        rpcMessage.setData(rpcResponse);
+                    }else{
+                        RpcResponse<Object> rpcResponse = RpcResponse.fail(RpcResponseCode.FAIL);
+                        rpcMessage.setData(rpcResponse);
+                        logger.error("not writeable now ,message droped");
+                    }
                 }
+                ctx.writeAndFlush(rpcMessage).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
             } finally {
                 //释放byteBuf，避免内存泄漏
                 ReferenceCountUtil.release(msg);
             }
         });
 
+    }
+
+    /**
+     * 心跳检查
+     * @param ctx
+     * @param evt
+     * @throws Exception
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            IdleState state = ((IdleStateEvent) evt).state();
+            if (state == IdleState.READER_IDLE) {
+                logger.info("idle check happen, so close the connection");
+                ctx.close();
+            }
+        } else {
+            super.userEventTriggered(ctx, evt);
+        }
     }
 
     @Override

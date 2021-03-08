@@ -3,6 +3,7 @@ package learnfast.pankai.handler;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.enumration.RpcResponseCode;
+import learnfast.pankai.exception.RpcException;
 import learnfast.pankai.provider.ServiceProvider;
 import learnfast.pankai.provider.ServiceProviderImpl;
 import org.slf4j.Logger;
@@ -31,14 +32,11 @@ public class RpcRequestHandler {
     public Object handle(RpcRequest rpcRequest){
         Object result =null;
         //通过注册中心获取到目标类（客户端需要调用类）
-        Object service=serviceProvider.getServiceProvider(rpcRequest.getInterfaceName());
-        try {
-            result=invokeTargetMethod(rpcRequest,service);
-            logger.info("service:{} successfully invoke method :{}"
-                    ,rpcRequest.getInterfaceName(),rpcRequest.getMethodName());
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException  e) {
-            logger.error("occur exception ",e);
-        }
+        Object service=serviceProvider.getService(rpcRequest.getInterfaceName());
+        result=invokeTargetMethod(rpcRequest,service);
+        logger.info("service:{} successfully invoke method :{}"
+                ,rpcRequest.getInterfaceName(),rpcRequest.getMethodName());
+
         return result;
     }
 
@@ -46,13 +44,19 @@ public class RpcRequestHandler {
      * 根据 rpcRequest 、service 对象 反射调用对应的方法并返回结果
      */
 
-    private  Object invokeTargetMethod(RpcRequest rpcRequest,Object service) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-
-        Method method=service.getClass().getMethod(rpcRequest.getMethodName(),rpcRequest.getParameterTypes());
-        if(null == method){
-            return RpcResponse.fail(RpcResponseCode.NOT_FOUND_METHOD);
+    private  Object invokeTargetMethod(RpcRequest rpcRequest,Object service) {
+        Object result;
+        try {
+            Method method=service.getClass().getMethod(rpcRequest.getMethodName(),rpcRequest.getParameterTypes());
+            if(null == method){
+                return RpcResponse.fail(RpcResponseCode.NOT_FOUND_METHOD);
+            }
+            result= method.invoke(service,rpcRequest.getParameters());
+            return result;
+        } catch (NoSuchMethodException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+            throw new RpcException(e.getMessage(), e);
         }
-        return method.invoke(service,rpcRequest.getParameters());
+
     }
 
 }

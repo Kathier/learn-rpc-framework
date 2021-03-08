@@ -9,6 +9,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
 import learnfast.pankai.factory.SingletonFactory;
@@ -17,12 +18,15 @@ import learnfast.pankai.provider.ServiceProviderImpl;
 import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
 import learnfast.pankai.transport.netty.codec.NettyKryoEncoder;
+import learnfast.pankai.transport.netty.codec.RpcMessageDecoder;
+import learnfast.pankai.transport.netty.codec.RpcMessageEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -61,11 +65,13 @@ public class NettyServer  {
                     childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel)  {
+                            // 30 秒之内没有收到客户端请求的话就关闭连接
+                            socketChannel.pipeline().addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
                             //将接收到的字节流解码成RpcRequest对象
                             // pipeline管道，它为用户对于i/o内容的处理提供了链式的处理模式
-                            socketChannel.pipeline().addLast(new NettyKryoDecoder(kryoSerializer, RpcRequest.class));
+                            socketChannel.pipeline().addLast(new RpcMessageEncoder());
                             //将rpcResponse 编码为字节数组传输
-                            socketChannel.pipeline().addLast(new NettyKryoEncoder(kryoSerializer, RpcResponse.class));
+                            socketChannel.pipeline().addLast(new RpcMessageDecoder());
                             //NettyServerHandler 位于服务器端和客户端责任链的尾部，直接和 RpcServer 对象打交道，
                             // 而无需关心字节序列的情况
                             socketChannel.pipeline().addLast(new NettyServerHandler());

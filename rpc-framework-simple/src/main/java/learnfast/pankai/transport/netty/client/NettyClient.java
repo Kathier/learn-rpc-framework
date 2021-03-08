@@ -5,8 +5,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.timeout.IdleStateHandler;
+import learnfast.pankai.constants.RpcConstants;
+import learnfast.pankai.dto.RpcMessage;
 import learnfast.pankai.dto.RpcRequest;
 import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.enumration.SerializationTypeEnum;
 import learnfast.pankai.extension.ExtensionLoader;
 import learnfast.pankai.factory.SingletonFactory;
 import learnfast.pankai.registry.ServiceDiscovery;
@@ -14,11 +18,14 @@ import learnfast.pankai.serialize.KryoSerializer;
 import learnfast.pankai.transport.RpcRequestTransport;
 import learnfast.pankai.transport.netty.codec.NettyKryoDecoder;
 import learnfast.pankai.transport.netty.codec.NettyKryoEncoder;
+import learnfast.pankai.transport.netty.codec.RpcMessageDecoder;
+import learnfast.pankai.transport.netty.codec.RpcMessageEncoder;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by PanKai on 2021/2/22 16:21
@@ -46,18 +53,16 @@ public class NettyClient implements RpcRequestTransport {
                 channel(NioSocketChannel.class).
                 //设置连接超时时间
                         option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000).
-                //开启TCP底层心跳机制
-                        option(ChannelOption.SO_KEEPALIVE, true).
-                ////TCP默认开启了 Nagle 算法，该算法的作用是尽可能的发送大数据快，减少网络传输。TCP_NODELAY 参数的作用就是控制是否启用 Nagle 算法。
-                        option(ChannelOption.TCP_NODELAY, true).
                 handler(new ChannelInitializer<SocketChannel>() {
 
                     @Override
                     protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        //如果 15 秒之内没有发送数据给服务端的话，就发送一次心跳请求
+                        socketChannel.pipeline().addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
                         //自定义序列化编解码器
                         //ByteBuf->RpcResponse
-                        socketChannel.pipeline().addLast(new NettyKryoDecoder(kryoSerializer, RpcResponse.class));
-                        socketChannel.pipeline().addLast(new NettyKryoEncoder(kryoSerializer, RpcRequest.class));
+                        socketChannel.pipeline().addLast(new RpcMessageEncoder());
+                        socketChannel.pipeline().addLast(new RpcMessageDecoder());
                         socketChannel.pipeline().addLast(new NettyClientHandler());
                     }
                 });
@@ -109,9 +114,14 @@ public class NettyClient implements RpcRequestTransport {
         if(channel!=null && channel.isActive()){
             //放入未处理的请求
             unprocessedRequests.put(rpcRequest.getRequestId(),resultFuture);
+            //设置消息体
+            RpcMessage rpcMessage = new RpcMessage();
+            rpcMessage.setData(rpcRequest);
+            rpcMessage.setCodec(SerializationTypeEnum.KRYO.getCode());
+            rpcMessage.setMessageType(RpcConstants.REQUEST_TYPE);
             channel.writeAndFlush(rpcRequest).addListener(  (ChannelFutureListener) future -> {
                 if(future.isSuccess()){
-                    logger.info(String.format("client send message : %s",rpcRequest.toString()));
+                    logger.info(String.format("client send message : %s",rpcMessage.toString()));
 
                 }else{
                     future.channel().close();

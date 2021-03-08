@@ -1,6 +1,12 @@
 package learnfast.pankai.proxy;
 import learnfast.pankai.dto.RpcRequest;
-import learnfast.pankai.transport.ClientTransport;
+import learnfast.pankai.dto.RpcResponse;
+import learnfast.pankai.enumration.RpcErrorMessageEnum;
+import learnfast.pankai.exception.RpcException;
+import learnfast.pankai.transport.RpcRequestTransport;
+import learnfast.pankai.transport.netty.client.NettyClient;
+import learnfast.pankai.transport.socket.SocketRpcRpcRequest;
+import learnfast.pankai.util.RpcMessageChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +14,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author PanKai
@@ -22,10 +30,10 @@ public class RpcClientProxy implements InvocationHandler {
      * 用于发送请求给服务端，有socket和netty两种实现方式
      * @param rpcClient
      */
-    private ClientTransport clientTransport;
+    private RpcRequestTransport rpcRequestTransport;
 
-    public RpcClientProxy(ClientTransport clientTransport){
-      this.clientTransport = clientTransport;
+    public RpcClientProxy(RpcRequestTransport rpcRequestTransport){
+      this.rpcRequestTransport = rpcRequestTransport;
     }
     //通过Proxy.newProxyInstance()方法获取某个类的代理对象
     @SuppressWarnings("unchecked") //告诉编译器忽略 unchecked 警告信息
@@ -45,7 +53,7 @@ public class RpcClientProxy implements InvocationHandler {
      * @return
      */
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args)  {
+    public Object invoke(Object proxy, Method method, Object[] args) throws ExecutionException, InterruptedException {
         logger.info("call invoke method and the method is :{}",method.getName());
         RpcRequest rpcRequest=RpcRequest.builder().methodName(method.getName()).
                 parameters(args).
@@ -53,6 +61,15 @@ public class RpcClientProxy implements InvocationHandler {
                 parameterTypes(method.getParameterTypes()).
                 requestId(UUID.randomUUID().toString()).
                 build();
-        return clientTransport.sendRpcRequest(rpcRequest);
+        RpcResponse<Object> rpcResponse = null;
+        if (rpcRequestTransport instanceof NettyClient) {
+            CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) rpcRequestTransport.sendRpcRequest(rpcRequest);
+            rpcResponse = completableFuture.get();
+        }
+        if (rpcRequestTransport instanceof SocketRpcRpcRequest) {
+            rpcResponse = (RpcResponse<Object>) rpcRequestTransport.sendRpcRequest(rpcRequest);
+        }
+        RpcMessageChecker.check(rpcRequest,rpcResponse);
+        return rpcRequestTransport.sendRpcRequest(rpcRequest);
     }
 }

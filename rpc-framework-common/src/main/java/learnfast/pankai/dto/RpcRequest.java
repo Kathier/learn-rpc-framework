@@ -1,5 +1,6 @@
 package learnfast.pankai.dto;
 
+import learnfast.pankai.enumration.RpcMessageTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class RpcRequest implements Serializable {
     private Object [] parameters;
     private Class <?> [] parameterTypes;
     private  String requestId;
+    private RpcMessageTypeEnum rpcMessageTypeEnum;
 
 
 }
